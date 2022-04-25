@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment</title>
+    <link rel="stylesheet" href="./css/site.css">
+    <script src="https://kit.fontawesome.com/d7463ce0d8.js" crossorigin="anonymous"></script>
+    <title>Assignment</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <nav class="menu">
+            <input type="checkbox" id="menuToggle">
+            <label for="menuToggle" class="menu-icon"><i class="fa fa-bars"></i></label>
+            <ul>
+                <li class="space-add">
+                    <a href="#"></a>
+                </li>
+                <li id="createFormBtn">
+                    <a href="#">
+                        <i class="fa-solid fa-plus"></i>
+                        <span> New </span>
+                        <i class="fa-solid fa-chevron-down fa-2xs"></i>
+                    </a>
+                </li>
+                <li id="uploadFormBtn">
+                    <a href="#">
+                        <i class="fa-solid fa-upload"></i>
+                        <span>Upload</span>
+                    </a>
+                </li>
+                <li> <a href="#">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                        <span>Sync</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-file-excel"></i>
+                        <span>Export to Excel</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Flow</span>
+                        <i class="fa-solid fa-chevron-down fa-2xs"></i>
+                    </a>
+                </li>
+                <a href="#">
+                    <li>
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </li>
+                </a>
+            </ul>
+        </nav>
+    </div>
+    <form id="formCreateFolder">
+        <div class="inputForm">
+            <div class="inputForm-title">
+                Create a folder
+                <i class="fa-solid fa-xmark" id="closeCreateFormBtn"></i>
+            </div>
+
+            <div class="inputForm-body">
+                <input required id="createFormInput" type="text" class=" fullWidthInput" onkeyup="validateCreateForm()"
+                    placeholder="Enter the folder name">
+            </div>
+            <div class="inputForm-button">
+                <input id="createFormButton" type="submit" value="Create" class=" createButton">
+            </div>
+        </div>
+    </form>
+
+    <form id="formUploadFolder">
+        <div class="uploadForm">
+            <div class="uploadForm-title">
+                Upload a file
+                <i class="fa-solid fa-xmark" id="closeUploadFormBtn"></i>
+            </div>
+
+            <div class="uploadForm-body">
+                <input required multiple id="uploadFormInput" type="file" class=" fullWidthInput"
+                    onchange="validateCreateForm1()" placeholder="Enter the folder name" hidden="hidden">
+            </div>
+            <div class="uploadForm-button">
+                <input id="uploadFormButton" type="submit" value="Upload" class=" uploadButton">
+            </div>
+        </div>
+    </form>
+
+    <form id="formUpdateFolder">
+        <div class="updateForm">
+            <div class="updateForm-title">
+                Enter new name's file
+                <i class="fa-solid fa-xmark" id="closeUpdateFormBtn"></i>
+            </div>
+            <div class="updateForm-body">
+                <input required id="updateFormInput" type="text" class=" fullWidthInput"
+                    onkeyup="validateCreateForm2()">
+            </div>
+            <div class="updateForm-button">
+                <input id="updateFormButton" type="submit" value="Update" class=" updateButton">
+                <input id="deleteFormButton" type="submit" value="Delete" class=" deleteButton">
+            </div>
+        </div>
+    </form>
+
+    <table id="documentTable">
+        <caption> Documents</caption>
+        <thead>
+            <tr>
+                <th scope="col">
+                    <i class="fa-regular fa-file"></i>
+                </th>
+                <th scope="col">
+                    Name
+                    <i class="fa-solid fa-chevron-down fa-2xs"></i>
+                </th>
+                <th scope="col">
+                    Modified
+                    <i class="fa-solid fa-chevron-down fa-2xs"></i>
+                </th>
+                <th scope="col">
+                    Modified By
+                    <i class="fa-solid fa-chevron-down fa-2xs"></i>
+                </th>
+                <th scope="col">
+                    Created
+                    <i class="fa-solid fa-chevron-down fa-2xs"></i>
+                </th>
+                <th scope="col">
+                    Created By
+                    <i class="fa-solid fa-chevron-down fa-2xs"></i>
+                </th>
+                <th scope="col" class="hidden-style">
+                    <i class="fa-solid fa-plus"></i>
+                    Add column
+                </th>
+            </tr>
+        </thead>
+        <tbody id="tbodyDataFileList">
+        </tbody>
+    </table>
+
+    <div class="container body-content">
+    @RenderBody()
+    <hr />
+    <footer>
+        <h3>@User.Identity.Name</h3> <br /> 
+        <a asp-controller="Account" asp-action="Signout" asp-area="MicrosoftIdentity">Signout</a>
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
+</div>
+    <script type="text/javascript" src="./js/site.js"></script>
+    <script>
+        function validateCreateForm() {
+            if (document.getElementById('createFormInput').value !== '') {
+                (document.getElementById('createFormButton')).disabled = false;
+            } else {
+                (document.getElementById('createFormButton')).disabled = true;
+            };
+        }
+        function validateCreateForm1() {
+            if (document.getElementById('uploadFormInput').files[0].name !== '') {
+                (document.getElementById('uploadFormButton')).disabled = false;
+            } else {
+                (document.getElementById('uploadFormButton')).disabled = true;
+            };
+        }
+        function validateCreateForm2() {
+            if (document.getElementById('updateFormInput').value !== '') {
+                (document.getElementById('updateFormButton')).disabled = false;
+            } else {
+                (document.getElementById('updateFormButton')).disabled = true;
+            };
+        }
+    </script>    
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
